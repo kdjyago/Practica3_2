@@ -82,7 +82,7 @@ public class LoginApp extends javax.swing.JFrame {
         jProgressBar1.setString("Cargando...");
         jProgressBar1.setStringPainted(true);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\yagom\\Documents\\GitHub\\Practica3_2\\Practica3_2\\src\\main\\resources\\candado.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/candado.png"))); // NOI18N
 
         jLabel2.setBackground(new java.awt.Color(0, 102, 102));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
