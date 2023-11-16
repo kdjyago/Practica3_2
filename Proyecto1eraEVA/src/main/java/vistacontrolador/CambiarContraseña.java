@@ -1,5 +1,6 @@
 package vistacontrolador;
 
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.EntradaSalida;
@@ -8,7 +9,7 @@ import modelo.EntradaSalida;
  *
  * @author yagom
  */
-public class CambiarContraseña extends javax.swing.JFrame {
+public class CambiarContraseña extends javax.swing.JFrame{
 
     private PantallaLogin pl = new PantallaLogin();
     private static EntradaSalida es = new EntradaSalida();
@@ -428,4 +429,5 @@ public class CambiarContraseña extends javax.swing.JFrame {
     private javax.swing.JPasswordField passField_nueva;
     private javax.swing.JPasswordField passField_nueva2;
     // End of variables declaration//GEN-END:variables
+
 }

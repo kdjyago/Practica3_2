@@ -5,15 +5,20 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class SeleccionColores extends javax.swing.JFrame {
-    
+
     private int initialX, initialY;
+    private Color panelPrincipalColor;
+    private Color panelSecundarioColor;
+
+    // Referencia al controlador central o clase de configuración
+    private SeleccionColores configuracionColores;
 
     public SeleccionColores() {
         this.setUndecorated(true);
         initComponents();
         configuracion();
     }
-    
+
     private void configuracion() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -23,8 +28,10 @@ public class SeleccionColores extends javax.swing.JFrame {
                 Color selectedColor = jColorChooser1.getColor();
                 if (jCheckBox1.isSelected()) {
                     jPanel2.setBackground(selectedColor);
+                    panelPrincipalColor = selectedColor;
                 } else if (jCheckBox2.isSelected()) {
                     jPanel1.setBackground(selectedColor);
+                    panelSecundarioColor = selectedColor;
                 }
             }
         });
@@ -32,17 +39,12 @@ public class SeleccionColores extends javax.swing.JFrame {
         jButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                jPanel2.setBackground(new Color(0,102,102));
+                jPanel2.setBackground(new Color(0, 102, 102));
                 jPanel1.setBackground(new Color(204, 255, 204));
                 jCheckBox1.setSelected(false);
                 jCheckBox2.setSelected(false);
-            }
-        });
-
-        jButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Agregar la lógica para volver si es necesario
+                panelPrincipalColor = new Color(0, 102, 102);
+                panelSecundarioColor = new Color(204, 255, 204);
             }
         });
 
@@ -66,12 +68,12 @@ public class SeleccionColores extends javax.swing.JFrame {
 
         setLocationRelativeTo(null);
     }
-    
+
     public void abrirSC() {
         this.setLocationRelativeTo(this);
         this.setVisible(true);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,6 +103,11 @@ public class SeleccionColores extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(0, 102, 102));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("VOLVER");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(0, 102, 102));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
@@ -248,7 +255,7 @@ public class SeleccionColores extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
@@ -270,6 +277,11 @@ public class SeleccionColores extends javax.swing.JFrame {
         initialX = newX;
         initialY = newY;
     }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
