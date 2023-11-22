@@ -5,6 +5,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -45,6 +46,26 @@ public class EntradaSalida {
         } catch (SQLException ex) {
             Logger.getLogger(EntradaSalida.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public ArrayList<String> listClientes() throws SQLException {
+       iniciarConexion();
+        ArrayList<String> usuA = new ArrayList();
+        String consulta = "SELECT c.* FROM cliente c; ";
+
+        try {
+            pstm = con.prepareStatement(consulta);
+            ResultSet rs1 = pstm.executeQuery();
+            while (rs1.next()) {
+                String usu = rs1.getString("nombre");
+                usuA.add(usu);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR SQL");
+            ex.printStackTrace();
+        }
+        cerrarConexion();
+        return usuA;
     }
 
     public void iniciarConexion() {
