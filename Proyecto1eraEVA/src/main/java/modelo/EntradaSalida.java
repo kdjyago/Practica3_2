@@ -47,11 +47,11 @@ public class EntradaSalida {
             Logger.getLogger(EntradaSalida.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public ArrayList<String> listClientes() throws SQLException {
-       iniciarConexion();
-        ArrayList<String> usuA = new ArrayList();
-        String consulta = "SELECT c.* FROM cliente c; ";
+
+    public ArrayList<String> listUsuarios() throws SQLException {
+        iniciarConexion();
+        ArrayList<String> usuA = new ArrayList<>();
+        String consulta = "SELECT u.* FROM usuarios u; ";
 
         try {
             pstm = con.prepareStatement(consulta);
@@ -63,8 +63,9 @@ public class EntradaSalida {
         } catch (SQLException ex) {
             System.out.println("ERROR SQL");
             ex.printStackTrace();
+        } finally {
+            cerrarConexion();
         }
-        cerrarConexion();
         return usuA;
     }
 
@@ -149,7 +150,7 @@ public class EntradaSalida {
             }
         }
     }
-    
+
     public static boolean consultar(String usuario_e, String contra_e) {
         try {
             con = DriverManager.getConnection(cad_conexion + "practica2_6", admin, "");
@@ -177,39 +178,38 @@ public class EntradaSalida {
             }
         }
     }
-    
-    public static boolean consultar2(String usuario_e, String contra_e) {
-    try {
-        con = DriverManager.getConnection(cad_conexion + "practica2_6", admin, "");
-        stm = con.createStatement();
-        String consulta = "SELECT usuario, contraseña FROM usuarios WHERE usuario = ? AND contraseña = ?";
-        pstm = con.prepareStatement(consulta);
-        pstm.setString(1, usuario_e);
-        pstm.setString(2, contra_e);
-        rs = pstm.executeQuery();
 
-        if (rs.next()) {
-            return true;
-        } else {
-            return false;
-        }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-        return false;
-    } finally {
+    public static boolean consultar2(String usuario_e, String contra_e) {
         try {
-            if (con != null) {
-                con.close();
+            con = DriverManager.getConnection(cad_conexion + "practica2_6", admin, "");
+            stm = con.createStatement();
+            String consulta = "SELECT usuario, contraseña FROM usuarios WHERE usuario = ? AND contraseña = ?";
+            pstm = con.prepareStatement(consulta);
+            pstm.setString(1, usuario_e);
+            pstm.setString(2, contra_e);
+            rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
             }
-            if (stm != null) {
-                stm.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
-}
-
 
     public static boolean modificarContraseña(String usuario_e, String contra_e) {
         try {

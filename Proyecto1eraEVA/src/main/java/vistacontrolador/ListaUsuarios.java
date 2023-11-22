@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import modelo.EntradaSalida;
 
 /**
  *
@@ -22,7 +23,7 @@ public class ListaUsuarios extends javax.swing.JFrame {
      */
     private DefaultTableModel model;
     private int initialX, initialY;
-    
+
     public ListaUsuarios() {
         this.setUndecorated(true);
         initComponents();
@@ -31,22 +32,15 @@ public class ListaUsuarios extends javax.swing.JFrame {
         model.addColumn("Usuarios");
         this.jTable1.setModel(model);
         model.setRowCount(0);
-//        try {
-//            for (Cliente cliente : cd.listClientes()) {
-//                Vector<Object> row = new Vector();
-//                row.add(cliente.getDni());
-//                row.add(cliente.getNombre());
-//                row.add(cliente.getApellido1());
-//                row.add(cliente.getApellido2());
-//                row.add(cliente.getPais());
-//                row.add(cliente.getTelefono());
-//                row.add((cliente.getFechaNac()));
-//                row.add(cliente.getEmail());
-//                model.addRow(row);
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ClientesView.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
+        try {
+            EntradaSalida es = new EntradaSalida();
+            for (String usu : es.listUsuarios()) {
+                model.addRow(new Object[]{usu});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

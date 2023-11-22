@@ -6,8 +6,8 @@ package modelo;
  */
 public class BD {
 
-    private static String CREARBD = "CREATE DATABASE IF NOT EXISTS Practica2_6;";
-    private static String USARBD = "USE Practica2_6;";
+    private static String CREARBD = "CREATE DATABASE IF NOT EXISTS ProyectoYago;";
+    private static String USARBD = "USE ProyectoYago;";
     private static String CREARTABLA = "CREATE TABLE IF NOT EXISTS usuarios ( "
             + "usuario VARCHAR(25) NOT NULL, "
             + "contraseña VARCHAR(25) NOT NULL, "
