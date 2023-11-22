@@ -25,7 +25,7 @@ public class PantallaLogin extends javax.swing.JFrame {
         //Tienes que iniciar el XAMPP antes para poder crear la base si quieres usarlo.
         //En el anterior commit te lo he metido sin base
         try {
-            es.crearBase();
+//            es.crearBase();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "No tienes iniciado el XAMPP");
             System.exit(0);
@@ -265,6 +265,7 @@ public class PantallaLogin extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
         }
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked

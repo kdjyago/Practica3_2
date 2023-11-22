@@ -49,22 +49,34 @@ public class EntradaSalida {
     }
 
     public ArrayList<String> listUsuarios() throws SQLException {
-        iniciarConexion();
         ArrayList<String> usuA = new ArrayList<>();
+        con = DriverManager.getConnection(cad_conexion + "ProyectoYago", admin, "");
         String consulta = "SELECT u.* FROM usuarios u; ";
 
         try {
             pstm = con.prepareStatement(consulta);
             ResultSet rs1 = pstm.executeQuery();
             while (rs1.next()) {
-                String usu = rs1.getString("nombre");
+                String usu = rs1.getString("usuario");
                 usuA.add(usu);
             }
         } catch (SQLException ex) {
             System.out.println("ERROR SQL");
             ex.printStackTrace();
         } finally {
-            cerrarConexion();
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return usuA;
     }
@@ -84,7 +96,7 @@ public class EntradaSalida {
     public boolean verificarCredenciales(String usuario, String contraseña) {
 
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/practica2_6", admin, "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ProyectoYago", admin, "");
 
             String sql = "SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?";
             pstm = con.prepareStatement(sql);
@@ -116,7 +128,7 @@ public class EntradaSalida {
 
     public void agregarUsuario(String usuario, String contraseña, String nombre, String apellido1, String apellido2, String fechanac, String correo) {
         try {
-            con = DriverManager.getConnection(cad_conexion + "practica2_6", admin, "");
+            con = DriverManager.getConnection(cad_conexion + "ProyectoYago", admin, "");
             String sql = "INSERT IGNORE INTO usuarios VALUES (?, ?, ?, ?, ?, ?, ?)";
             pstm = con.prepareStatement(sql);
 
@@ -153,7 +165,7 @@ public class EntradaSalida {
 
     public static boolean consultar(String usuario_e, String contra_e) {
         try {
-            con = DriverManager.getConnection(cad_conexion + "practica2_6", admin, "");
+            con = DriverManager.getConnection(cad_conexion + "ProyectoYago", admin, "");
             stm = con.createStatement();
             rs = stm.executeQuery("SELECT usuario, contraseña FROM usuarios WHERE usuario = '" + usuario_e + "' and contraseña = '" + contra_e + "'");
 
@@ -181,7 +193,7 @@ public class EntradaSalida {
 
     public static boolean consultar2(String usuario_e, String contra_e) {
         try {
-            con = DriverManager.getConnection(cad_conexion + "practica2_6", admin, "");
+            con = DriverManager.getConnection(cad_conexion + "ProyectoYago", admin, "");
             stm = con.createStatement();
             String consulta = "SELECT usuario, contraseña FROM usuarios WHERE usuario = ? AND contraseña = ?";
             pstm = con.prepareStatement(consulta);
@@ -213,7 +225,7 @@ public class EntradaSalida {
 
     public static boolean modificarContraseña(String usuario_e, String contra_e) {
         try {
-            con = DriverManager.getConnection(cad_conexion + "practica2_6", admin, "");
+            con = DriverManager.getConnection(cad_conexion + "ProyectoYago", admin, "");
             stm = con.createStatement();
             stm.executeUpdate("UPDATE usuarios SET contraseña = '" + contra_e + "' WHERE usuario = '" + usuario_e + "'");
             return true;
